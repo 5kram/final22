@@ -3,7 +3,7 @@
 pragma solidity 0.8.12;
 
 contract MovieToken {
-    address owner; // record the producer’s address
+    address payable owner; // record the producer’s address
     mapping (address => uint256) balances; // investor balances
     uint256 totalSupply; // total supply in contract
     uint256 lastWithdrawDate; // last withdrawal time
@@ -21,7 +21,7 @@ contract MovieToken {
         lastWithdrawDate = block.timestamp;
         // Withdraw schedule: only withdraw 1 more ether than has ever
         // been withdrawn.
-        uint256 maxAmount = (totalSupply - address(this).balance) + (1 ether));
+        uint256 maxAmount = (totalSupply - address(this).balance + (1 ether));
         require(amount <= maxAmount);
         require(owner.send(amount)); // send the funds to the producer
     }
