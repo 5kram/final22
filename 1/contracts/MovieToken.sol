@@ -8,8 +8,8 @@ contract MovieToken {
     uint256 totalSupply; // total supply in contract
     uint256 lastWithdrawDate; // last withdrawal time
     
-    function MovieToken() { // Constructor
-        owner = msg.sender;
+    constructor()  payable { // Constructor
+        owner = payable(msg.sender);
         balances[owner] = msg.value; // The producer may fund the movie
         totalSupply = balances[owner];
     }
@@ -27,7 +27,7 @@ contract MovieToken {
     }
 
     // Fallback function: record a fund-raise contribution
-    fallback () external payable {
+    receive() external payable {
         balances[msg.sender] += msg.value; // transfer tokens to investor
         totalSupply += msg.value; // record amount
     }
