@@ -3,10 +3,10 @@
 pragma solidity 0.8.12;
 
 contract MovieToken {
-    address payable owner; // record the producer’s address
-    mapping (address => uint256) balances; // investor balances
-    uint256 totalSupply; // total supply in contract
-    uint256 lastWithdrawDate; // last withdrawal time
+    address payable public owner; // record the producer’s address
+    mapping (address => uint256) public balances; // investor balances
+    uint256 public totalSupply; // total supply in contract
+    uint256 public lastWithdrawDate; // last withdrawal time
     
     constructor()  payable { // Constructor
         owner = payable(msg.sender);
@@ -14,7 +14,7 @@ contract MovieToken {
         totalSupply = balances[owner];
     }
 
-    function withdraw(uint256 amount) public { // note: function is not payable
+    function withdraw(uint256 amount) external { // note: function is not payable
         require(msg.sender == owner); // Only the producer may withdraw funds
         require(amount > 0 && amount <= address(this).balance);
         require(block.timestamp > lastWithdrawDate + (30 days)); // Only once per month
