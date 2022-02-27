@@ -1,0 +1,1 @@
+This is not a good idea. A miner can manipulate the lottery by taking advantage of the use of `blockhashb(block.number)`. A miner can buy a ticket, check his ID and mine blocks until he finds one in which he is the winner, discarding the ones he did not win.
